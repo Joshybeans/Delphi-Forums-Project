@@ -1,0 +1,14 @@
+html {
+    margin-bottom: 0px;
+}
+
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    overflow: hidden;
+}
+
+#mainCanvas {
+    margin-top: 0px;
+    border: 0px solid;
+}

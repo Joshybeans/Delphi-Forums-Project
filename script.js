@@ -558,25 +558,14 @@ function input(event) {
 
 function createUI() {
     topBar.size.y = 50;
-    topBar.addChild(new TextBox(new Vector2(0, 0), new Vector2(100, 100), 'Reading (DO FIRST)'));
     topBar.addChild(new TextBox(new Vector2(0, 0), new Vector2(100, 100), 'Game'));
+    topBar.addChild(new TextBox(new Vector2(0, 0), new Vector2(100, 100), 'Reading (DO FIRST)'));
+
 
     topBar.children[0].onClick = function() {
         topBar.children[1].deToggle();
-        this.text = 'Reading';
     };
     topBar.children[0].onSetToggled = function() {
-        for(let item of reading) {
-            item.visible = this.toggled;
-        }
-        scrollY = 0;
-    };
-
-
-    topBar.children[1].onClick = function() {
-        topBar.children[0].deToggle();
-    };
-    topBar.children[1].onSetToggled = function() {
         gamePlaying = this.toggled;
         ballGame = false;
         physicsMode = 0;
@@ -594,6 +583,17 @@ function createUI() {
         gameItems[3].textColor = '#0000ff';
         currQuestionIndex = 0;
         askNextQuestion();
+    };
+
+    topBar.children[1].onClick = function() {
+        topBar.children[0].deToggle();
+        this.text = 'Reading';
+    };
+    topBar.children[1].onSetToggled = function() {
+        for(let item of reading) {
+            item.visible = this.toggled;
+        }
+        scrollY = 0;
     };
 
     let vBox = new VBoxContainer(new Vector2(0, 0), new Vector2(100, Math.min(800, canvas.height)));
@@ -648,7 +648,7 @@ function createReading() {
         ['bold 25pt Arial', 30, 'Overview'],
         ['25pt Arial', 30, 'Delphi Forums, running to this day, hosts several community-run forums. It stands as one of the earliest ever online forum sites, and has been tossed around by many corporations as it fluctuated in popularity over the years and became altered in many ways. It originally began as an Internet encyclopedia in 1980, founded by Wes Kussmaul, with extra software along with chat and email services all provided by a computer, much like one buys a physical book. It transformed primarily into an Internet services platform, and transferred to a web-based interface with ad-based income. It later used a freemium model, which it upholds to this day alongside advertisements, providing extra features to members of a paid subscription service. Delphi Forums stands as a historical monument and development to the Internet of today and a time capsule to the Internet of the past.'],
         ['bold 25pt Arial', 30, 'Timeline of Delphi Forums'],
-        ['25pt Arial', 30, 'Founded in early 1980 by Wes Kussmaul, Delphi Forums, originally named Kussmaul Encyclopedia, was the first ever computerized encyclopedia, with email and rudimentary chat services. Upon purchase, it was provided with a physical computer and some software. In early 1982, due to an effort to bounce back from the increasing loss of profit by the encyclopedia, Kussmaul realized social media\'s potential if his business ceased providing the actual computer to access the services. The name then was changed to Delphi on March 15, 1983. In 1991 they partnered with ASCII Corp of Japan to deploy online services there. A year later they became the first provider of access to the Internet to national consumers.    Delphi was sold to the News America Corporation in 1993, owned by Rupert Murdoch. By 1995 they had around 125,000 text-based customers, and in the following year different estimated membership numbers range from 5,000 to 2.5 million. Delphi then transferred to a web-based interface, establishing itself as a free online service with advertising as the main source of income. Prospero was then created in January 2000, merging Delphi Forums with Wellengaged. It was then purchased by Rob Brazeli and merged with other sites under Blue Frogg Enterprises a year later. Yet another year passed before it was reacquired by Prospero, joining with Talk City to form Delphi Forums LLC. Delphi Forums was purchased by Mzinga in its novel state in 2008, and sold to Dan Bruns, the original Delphi online services executive, forming present-day Delphi Forums LLC.'],
+        ['25pt Arial', 30, 'Founded in early 1980 by Wes Kussmaul, Delphi Forums, originally named Kussmaul Encyclopedia, was the first ever computerized encyclopedia, with email and rudimentary chat services. Upon purchase, it was provided with a physical computer and some software. In early 1982, due to an effort to bounce back from the increasing loss of profit by the encyclopedia, Kussmaul realized social media\'s potential if his business ceased providing the actual computer to access the services. The name then was changed to Delphi on March 15, 1983. In 1991 they partnered with ASCII Corp of Japan to deploy online services there. A year later they became the first provider of access to the Internet to national consumers.    Delphi was sold to the News America Corporation in 1993, owned by Rupert Murdoch. By 1995 they had around 125,000 text-based customers, and in the following year different estimated membership numbers range from 5,000 to 2.5 million. Delphi then transferred to a web-based interface, establishing itself as a free online service with advertising as the main source of income. Prospero was then created in January 2000, merging Delphi Forums with Wellengaged. It was then purchased by Rob Brazeli and merged with other sites under Blue Frogg Enterprises a year later. Yet another year passed before it was reacquired by Prospero, joining with Talk City to form Delphi Forums LLC. Delphi Forums was purchased by Mzinga in its novel state in 2008. The company was then sold to Dan Bruns, the original Delphi online services executive, forming present-day Delphi Forums LLC.'],
     ]
     let textHeight = 0;
     for(let objData of text) {
@@ -733,9 +733,9 @@ let questions = [
     'What revenue model does Delphi Forums use?\nA) Ad-based\nB) Freemium\nC) Non-profit\nD) Both A and B\n',
     'Who founded Delphi Forums?\nA) Wes Kussmaul\nB) Rupert Murdoch\nC) Rob Brazeli\nD) Dan Bruns\n',
     'What year was Delphi established in?\nA) 1982\nB) 1990\nC) 1980\nD) 1981\n',
-    'Kussmaul realized social media’s potential after stopping what service?\nA) E-mail\nB) Chat services\nC) Extra software\nD) Providing computers\n',
-    'What does Delphi Forums currently primarily do?\nA) Provide email services\nB) Host business websites\nC) Host community-made forums\nD) Nothing, the website isn’t running anymore\n',
-    'What is one of the world’s earliest Internet forum hosts?\nA) Reddit\nB) Stack Exchange\nC) Planet Minecraft\nD) Delphi Forums\n',
+    'Kussmaul realized social media\'s potential after stopping what service?\nA) E-mail\nB) Chat services\nC) Extra software\nD) Providing computers\n',
+    'What does Delphi Forums currently primarily do?\nA) Provide email services\nB) Host business websites\nC) Host community-made forums\nD) Nothing, the website isn\'t running anymore\n',
+    'What is one of the world\'s earliest Internet forum hosts?\nA) Reddit\nB) Stack Exchange\nC) Planet Minecraft\nD) Delphi Forums\n',
     'What was the Delphi text-based customer count in 1995?\nA) 100,000\nB) 25,000\nC) 125,00\nD) 2,500\n',
     'Which one of these has not owned Delphi Forums?\nA) Delphi Forums LLC\nB) Mzinga\nC) Blue Frogg Enterprises\nD) Talk City\n',
     'Dan Bruns was Delphi Forums\'s original what?\nA) CEO\nB) Lead Website Monitor\nC) Communications Manager\nD) Online Services Executive\n',

@@ -446,6 +446,7 @@ function draw(items) {
 
 let mousePos = new Vector2(0, 0);
 let topBar = new HBoxContainer();
+let welcomeMsg = new TextItem('Welcome :)');
 let physicsBodies = [];
 let reading = [];
 let gameItems = [];
@@ -566,6 +567,8 @@ function createUI() {
         topBar.children[1].deToggle();
     };
     topBar.children[0].onSetToggled = function() {
+        welcomeMsg.text = 'Have fun?';
+        welcomeMsg.visible = !this.toggled;
         gamePlaying = this.toggled;
         ballGame = false;
         physicsMode = 0;
@@ -590,6 +593,8 @@ function createUI() {
         this.text = 'Reading';
     };
     topBar.children[1].onSetToggled = function() {
+        welcomeMsg.text = 'Nice read?';
+        welcomeMsg.visible = !this.toggled;
         for(let item of reading) {
             item.visible = this.toggled;
         }
@@ -601,10 +606,10 @@ function createUI() {
     vBox.addChild(new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'All programming done'));
     vBox.addChild(new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'in native HTML, JS,'));
     vBox.addChild(new TextBox(new Vector2(0, 0), new Vector2(0, 0), '& CSS by Me :)'));
-    vBox.addChild(new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'Reading Sources:'));
-    let link1 = new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'Source 1');
-    let link2 = new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'Source 2');
-    let link3 = new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'Source 3');
+    vBox.addChild(new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'Sources:'));
+    let link1 = new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'Delphi Timeline');
+    let link2 = new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'Dave Cayem Interview');
+    let link3 = new TextBox(new Vector2(0, 0), new Vector2(0, 0), 'About Wes Kussmaul');
     link1.onClick = function(){
         window.open('http://forums.delphiforums.com/delphihistory/messages/10/1', '_blank').focus();
         this.deToggle();
@@ -625,6 +630,7 @@ function createUI() {
         vBox.children[i].visible = false;
     }
     vBox.children[0].onClick = function() {
+        welcomeMsg.text = 'You actually read the credits! :D';
         for(let i = 1; i < vBox.children.length; i++) {
             vBox.children[i].visible = this.toggled;
         }
@@ -719,6 +725,8 @@ function createGame() {
 }
 
 function init() {
+    welcomeMsg.font = 'bold 40pt Arial';
+    drawnItems.push(welcomeMsg);
     createUI();
     createBalls();
     createReading();
@@ -837,6 +845,8 @@ function checkGameBall() {
 }
 
 function process(deltaTime) {
+    welcomeMsg.position = new Vector2((canvas.width - welcomeMsg.size.x) / 2, (canvas.height - welcomeMsg.size.y) / 2);
+
     if(ballGame) {
         if(ballsTargetPos.getLength()) {
             maxHeight = physicsBodies[0].position.y;

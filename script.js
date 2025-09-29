@@ -703,6 +703,7 @@ function createGame() {
     }
 
     gameItems.push(new TextItem('', new Vector2(canvas.width / 2, canvas.height / 2 - 200)));
+    gameItems[1].font = '14pt Arial';
     gameItems[1].visible = false;
 
     gameItems.push(new TextBox(new Vector2(canvas.width / 2 - 50, canvas.height / 2 - 50), new Vector2(100, 100), 'Drop!'));
@@ -866,7 +867,7 @@ function process(deltaTime) {
     }
 
     gameItems[0].position = new Vector2(canvas.width / 2 - 100, canvas.height / 2 - 100);
-    gameItems[1].position = new Vector2((canvas.width - gameItems[1].size.x) / 2, (canvas.height - gameItems[1].size.y) / 2 - 200);
+    gameItems[1].position = new Vector2((canvas.width - gameItems[1].size.x) / 2, (canvas.height - gameItems[1].size.y) / 2 - 150);
     gameItems[2].position = new Vector2(canvas.width / 2 - 50, canvas.height / 2 - 50);
     gameItems[3].position = new Vector2(canvas.width / 2, canvas.height / 2 + 200);
 

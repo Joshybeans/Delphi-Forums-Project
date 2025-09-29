@@ -458,7 +458,7 @@ let textSpacingArr = [];
 let readingHeight = 0;
 let ballsTargetPos = new Vector2(0, 0);
 let ballGame = false;
-let gamePlaying = false;
+let gameRunning = false;
 let physicsMode = 0;
 let answerCorrect = true;
 
@@ -569,7 +569,7 @@ function createUI() {
     topBar.children[0].onSetToggled = function() {
         welcomeMsg.text = 'Have fun?';
         welcomeMsg.visible = !this.toggled;
-        gamePlaying = this.toggled;
+        gameRunning = this.toggled;
         ballGame = false;
         physicsMode = 0;
         for(let body of physicsBodies) {
@@ -763,7 +763,7 @@ let correctAnswers = [
 ];
 
 function askNextQuestion() {
-    if(!gamePlaying) {
+    if(!gameRunning) {
         return;
     }
     if(currQuestionIndex == questions.length) {
@@ -777,7 +777,7 @@ function askNextQuestion() {
 }
 
 function checkAnswer(answer) {
-    if(!gamePlaying) {
+    if(!gameRunning) {
         return;
     }
     if(answer == correctAnswers[currQuestionIndex]) {
@@ -798,12 +798,14 @@ function checkAnswer(answer) {
         body.gravityScale = 0;
     }
     setTimeout(() => {
-        gameItems[2].visible = true;
+        gameItems[2].visible = ballGame;
     }, 2000);
 }
 
+
+
 function checkGameBall() {
-    if(!gamePlaying) {
+    if(!gameRunning) {
         return;
     }
     let gameBall = gameItems[3];
@@ -827,7 +829,7 @@ function checkGameBall() {
     }
     
     setTimeout(() => {
-        if(!gamePlaying) {
+        if(!gameRunning) {
             return;
         }
         physicsMode = 0;
@@ -849,19 +851,12 @@ function process(deltaTime) {
 
     if(ballGame) {
         if(ballsTargetPos.getLength()) {
-            maxHeight = physicsBodies[0].position.y;
             for(let body of physicsBodies) {
-                //(body.position.subtracted(ballsTargetPos).multiplied(Math.pow(0.1, deltaTime)).added(ballsTargetPos))
                 if(body.velocity.getLength() < 2000){
                     body.applyForce(ballsTargetPos.subtracted(body.position).getLength() * (body.radius / 10), ballsTargetPos.subtracted(body.position));
                 }
-                maxHeight = Math.max(maxHeight, body.position.y);
-            }
-            if(maxHeight < canvas.height / 2 + 100) {
-                //gameItems[2].visible = true;
             }
         }
-
     }
 
     topBar.size.x = canvas.width;
